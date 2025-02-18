@@ -1,18 +1,19 @@
 version: '3'
 services:
-    app1:
-        build: ./mobile
-        ports:
-            - "5001:80"
-    app2:
-        build: ./bank
-        ports:
-            - "5002:80"
+    bank:
+      container_name: bank-con
+      build: ./mobile
+      ports:
+        - "5001:80"
+    mobile:
+      container_name: mobile-con
+      build: ./bank
+      ports:
+        - "5002:80"
     nginx:
         build: ./nginx
         ports:
             - "8080:80"
         depends_on:
-            - app1
-            - app2
-    
+            - bank
+            - mobile
